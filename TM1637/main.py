@@ -11,7 +11,8 @@ rtc.datetime((2023,  7, 16,  7, 14, 15,  0, 0))
 # WD 1 = Monday
 # WD 7 = Sunday
 
-isPoint = True
+# Blinking colon
+isPoint = False
 
 while True:
     t = rtc.datetime()
