@@ -1,0 +1,4 @@
+D21 -- DIO
+D22 -- CLK
+3V3 -- VCC
+GND -- GND

@@ -1,3 +1,4 @@
-# GitHub Test
+# GitHub Repository for MicroPython Projects
 
-MicroPython repository
+MicroPython Examples for ESP32-WROOM-32
+

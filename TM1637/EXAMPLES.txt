@@ -1,0 +1,91 @@
+import tm1637
+from machine import Pin
+tm = tm1637.TM1637(dio=Pin(21), clk=Pin(22))
+
+# The following line of code should
+# be tested using the REPL
+# This will demonstrate basic function of 7 segment
+
+# 1. TO WRITE A STRING:
+# tm.show('abcd')
+
+# 2. TO WRITE A NUMBER:
+# tm.number(1234)
+#    Now to use the decimal point in between
+# tm.numbers(12,34,True)
+#    Now to turn off the decimal point
+# tm.numbers(12,34,False)
+#    So basically the 3rd value determines if
+#    decimal point will be active or not.
+#    So to display time: "12:59"
+# tm.numbers(12, 59)
+#    or 
+# tm.numbers(12, 59, True)
+
+# 3. TO SCROLL THE DISPLAY:
+# tm.scroll('Hello World') # 4 fps
+#    Now to control the speed of scroll
+#    The second value, is the amount of delay in ms
+# tm.scroll('Hello World', 1000) # 1 fps
+# tm.scroll(list(tm1637._SEGMENTS))
+
+# 4. TO SHOW TEMPERATURE:
+#    Works for range -9 to +99
+# tm.temperature(-9)  # -9*C
+# tm.temperature(5)   #  5*C
+# tm.temperature(99)  # 99*C
+#    While values outside the range, will give
+# tm.temperature(-10) # LO*C
+# tm.temperature(100) # HI*C
+
+#5. TO CONTROL THE BRIGHTNESS
+# tm.brightness(0)
+# tm.brightness(7)
+
+
+++++++++++++++++++++++++++++++++++++++++++++++
+
+
+import tm1637
+from machine import Pin
+from time import sleep_ms
+
+tm = tm1637.TM1637(dio=Pin(21), clk=Pin(22))
+
+# This will count up from 0 to 19 and
+# count down from 20 down to 1.
+while True:
+    # Count up counter:
+    for i in range(20):
+        tm.number(i)
+        sleep_ms(500)
+        
+    # Count down counter:
+    for i in range(20, 0, -1):
+        tm.number(i)
+        sleep_ms(500)
+
+
+++++++++++++++++++++++++++++++++++++++++++++
+
+
+import tm1637
+from machine import Pin
+from time import sleep_ms
+from machine import RTC
+
+rtc = RTC()
+tm = tm1637.TM1637(dio=Pin(21), clk=Pin(22))
+
+rtc.datetime((2021, 2, 2, 1, 12, 01, 0, 0))
+# rtc.datetime((YYYY, MM, DD, WD, HH, MM, SS, MS))
+# WD 1 = Monday
+# WD 7 = Sunday
+
+isPoint = True
+
+while True:
+    t = rtc.datetime()
+    tm.numbers(t[4], t[5], isPoint)
+    sleep_ms(200)
+    isPoint = not isPoint
